@@ -1,7 +1,6 @@
 
 import { useState } from 'react';
 import ThemeToggle from './ThemeToggle';
-import DownloadCV from './DownloadCV';
 import { Menu, X } from 'lucide-react';
 
 const Header = () => {
@@ -40,7 +39,6 @@ const Header = () => {
             </a>
           ))}
           <ThemeToggle />
-          <DownloadCV />
         </nav>
 
         {/* Mobile Navigation Toggle */}
@@ -70,9 +68,6 @@ const Header = () => {
                 {item.name}
               </a>
             ))}
-            <div className="mt-4">
-              <DownloadCV />
-            </div>
           </nav>
         </div>
       )}
