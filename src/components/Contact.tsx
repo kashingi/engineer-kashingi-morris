@@ -9,6 +9,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { toast } from 'sonner';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
+import emailjs from 'emailjs-com';
 
 const formSchema = z.object({
   name: z.string().min(2, { message: 'Name must be at least 2 characters.' }),
@@ -18,6 +19,11 @@ const formSchema = z.object({
 });
 
 type FormValues = z.infer<typeof formSchema>;
+
+// EmailJS configuration - replace these with actual values
+const EMAILJS_SERVICE_ID = 'service_8q9c9ij'; 
+const EMAILJS_TEMPLATE_ID = 'template_pjdlfje';
+const EMAILJS_USER_ID = 'aExR72QoGpWaIk5Hd';
 
 const Contact = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -36,13 +42,26 @@ const Contact = () => {
     setIsSubmitting(true);
     
     try {
-      // In a real application, this would be an API call to a backend service
-      // that handles the email sending functionality
       console.log('Form data submitted:', data);
       
-      // Simulate API call delay
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      // Prepare template parameters for EmailJS
+      const templateParams = {
+        from_name: data.name,
+        from_email: data.email,
+        subject: data.subject,
+        message: data.message,
+        to_email: 'moriskashing74@gmail.com', // Add recipient email as a parameter
+      };
       
+      // Send email using EmailJS
+      const response = await emailjs.send(
+        EMAILJS_SERVICE_ID,
+        EMAILJS_TEMPLATE_ID,
+        templateParams,
+        EMAILJS_USER_ID
+      );
+      
+      console.log('Email sent successfully:', response);
       toast.success('Message sent successfully! Morris will get back to you soon.');
       form.reset();
     } catch (error) {
