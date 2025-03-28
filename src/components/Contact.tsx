@@ -20,10 +20,13 @@ const formSchema = z.object({
 
 type FormValues = z.infer<typeof formSchema>;
 
-// EmailJS configuration - replace these with actual values
+// EmailJS configuration
 const EMAILJS_SERVICE_ID = 'service_8q9c9ij'; 
 const EMAILJS_TEMPLATE_ID = 'template_pjdlfje';
 const EMAILJS_USER_ID = 'aExR72QoGpWaIk5Hd';
+
+// Initialize EmailJS
+emailjs.init(EMAILJS_USER_ID);
 
 const Contact = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -50,8 +53,11 @@ const Contact = () => {
         from_email: data.email,
         subject: data.subject,
         message: data.message,
-        to_email: 'moriskashing74@gmail.com', // Add recipient email as a parameter
+        to_name: 'Morris', // Add recipient name
+        reply_to: data.email,
       };
+      
+      console.log('Sending email with parameters:', templateParams);
       
       // Send email using EmailJS
       const response = await emailjs.send(
@@ -66,7 +72,15 @@ const Contact = () => {
       form.reset();
     } catch (error) {
       console.error('Error submitting form:', error);
-      toast.error('Failed to send message. Please try again later.');
+      
+      // More detailed error message
+      let errorMessage = 'Failed to send message. Please try again later.';
+      if (error instanceof Error) {
+        errorMessage = `Error: ${error.message}`;
+        console.error('Error details:', error);
+      }
+      
+      toast.error(errorMessage);
     } finally {
       setIsSubmitting(false);
     }
