@@ -25,11 +25,12 @@ const EMAILJS_SERVICE_ID = 'service_8q9c9ij';
 const EMAILJS_TEMPLATE_ID = 'template_pjdlfje';
 const EMAILJS_USER_ID = 'aExR72QoGpWaIk5Hd';
 
-// Initialize EmailJS
+// Initialize EmailJS with public key
 emailjs.init(EMAILJS_USER_ID);
 
 const Contact = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [emailJSError, setEmailJSError] = useState<string | null>(null);
 
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
@@ -43,6 +44,7 @@ const Contact = () => {
 
   const onSubmit = async (data: FormValues) => {
     setIsSubmitting(true);
+    setEmailJSError(null);
     
     try {
       console.log('Form data submitted:', data);
@@ -53,7 +55,7 @@ const Contact = () => {
         from_email: data.email,
         subject: data.subject,
         message: data.message,
-        to_name: 'Morris', // Add recipient name
+        to_name: 'Morris', // Recipient name
         reply_to: data.email,
       };
       
@@ -73,13 +75,21 @@ const Contact = () => {
     } catch (error) {
       console.error('Error submitting form:', error);
       
-      // More detailed error message
+      // Handle specific EmailJS errors
       let errorMessage = 'Failed to send message. Please try again later.';
+      
       if (error instanceof Error) {
         errorMessage = `Error: ${error.message}`;
         console.error('Error details:', error);
+        
+        // Check for specific error types
+        if (error.message.includes('Account not found') || error.message.includes('404')) {
+          setEmailJSError('EmailJS account configuration issue. Please check your EmailJS setup.');
+          errorMessage = 'Email service configuration issue. Please try an alternative contact method.';
+        }
       }
       
+      // Display error message to user
       toast.error(errorMessage);
     } finally {
       setIsSubmitting(false);
@@ -98,6 +108,12 @@ const Contact = () => {
             <p className="text-muted-foreground">
               Fill out the form below to send Morris a message directly.
             </p>
+            {emailJSError && (
+              <div className="mt-4 p-3 bg-amber-50 border border-amber-200 rounded-md text-amber-700 text-sm">
+                <p><strong>Note:</strong> {emailJSError}</p>
+                <p className="mt-2">You can also reach out via email at moriskashing74@gmail.com</p>
+              </div>
+            )}
           </div>
 
           <Form {...form}>
