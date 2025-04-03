@@ -9,7 +9,6 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { toast } from 'sonner';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
-import emailjs from 'emailjs-com';
 
 const formSchema = z.object({
   name: z.string().min(2, { message: 'Name must be at least 2 characters.' }),
@@ -20,12 +19,7 @@ const formSchema = z.object({
 
 type FormValues = z.infer<typeof formSchema>;
 
-// EmailJS configuration
-const EMAILJS_SERVICE_ID = 'service_31seoyo'; 
-const EMAILJS_TEMPLATE_ID = 'template_n2jhy6r';
-const EMAILJS_PUBLIC_KEY = 'iHsLHk0qSvHgwjPwP';
-
-// Recipient email (your email)
+// Recipient email
 const RECIPIENT_EMAIL = 'moriskashing74@gmail.com';
 
 const Contact = () => {
@@ -47,29 +41,42 @@ const Contact = () => {
     try {
       console.log('Form data submitted:', data);
       
-      // Prepare template parameters for EmailJS
-      const templateParams = {
-        to_email: RECIPIENT_EMAIL,
-        from_name: data.name,
-        from_email: data.email,
-        subject: data.subject,
-        message: data.message,
-        reply_to: data.email
-      };
+      // Using formsubmit.co service - a simple email sending service that doesn't require API keys
+      const formData = new FormData();
+      formData.append('name', data.name);
+      formData.append('email', data.email);
+      formData.append('subject', data.subject);
+      formData.append('message', data.message);
       
-      // Send email using EmailJS
-      await emailjs.send(
-        EMAILJS_SERVICE_ID,
-        EMAILJS_TEMPLATE_ID,
-        templateParams,
-        EMAILJS_PUBLIC_KEY
-      );
+      const response = await fetch(`https://formsubmit.co/${RECIPIENT_EMAIL}`, {
+        method: 'POST',
+        body: formData,
+        headers: {
+          'Accept': 'application/json',
+        },
+      });
       
-      toast.success('Message sent successfully! Morris will get back to you soon.');
-      form.reset();
+      if (response.ok) {
+        toast.success('Message sent successfully! Morris will get back to you soon.');
+        form.reset();
+      } else {
+        throw new Error('Server responded with an error');
+      }
     } catch (error) {
       console.error('Error submitting form:', error);
-      toast.error('Failed to send message. Please try again later or contact directly at moriskashing74@gmail.com');
+      
+      // Provide a fallback option in case the form submission fails
+      toast.error(
+        <div>
+          Failed to send message. Please email directly at: 
+          <a 
+            href={`mailto:${RECIPIENT_EMAIL}`} 
+            className="font-medium text-primary hover:underline ml-1"
+          >
+            {RECIPIENT_EMAIL}
+          </a>
+        </div>
+      );
     } finally {
       setIsSubmitting(false);
     }
