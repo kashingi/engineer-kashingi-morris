@@ -9,7 +9,6 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { toast } from 'sonner';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
-import emailjs from 'emailjs-com';
 
 const formSchema = z.object({
   name: z.string().min(2, { message: 'Name must be at least 2 characters.' }),
@@ -20,17 +19,11 @@ const formSchema = z.object({
 
 type FormValues = z.infer<typeof formSchema>;
 
-// EmailJS configuration
-const EMAILJS_SERVICE_ID = 'service_8q9c9ij'; 
-const EMAILJS_TEMPLATE_ID = 'template_pjdlfje';
-const EMAILJS_USER_ID = 'aExR72QoGpWaIk5Hd';
-
-// Initialize EmailJS with public key
-emailjs.init(EMAILJS_USER_ID);
+// Direct email configuration
+const RECIPIENT_EMAIL = 'moriskashing74@gmail.com';
 
 const Contact = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [emailJSError, setEmailJSError] = useState<string | null>(null);
 
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
@@ -44,53 +37,25 @@ const Contact = () => {
 
   const onSubmit = async (data: FormValues) => {
     setIsSubmitting(true);
-    setEmailJSError(null);
     
     try {
       console.log('Form data submitted:', data);
       
-      // Prepare template parameters for EmailJS
-      const templateParams = {
-        from_name: data.name,
-        from_email: data.email,
-        subject: data.subject,
-        message: data.message,
-        to_name: 'Morris', // Recipient name
-        reply_to: data.email,
-      };
-      
-      console.log('Sending email with parameters:', templateParams);
-      
-      // Send email using EmailJS
-      const response = await emailjs.send(
-        EMAILJS_SERVICE_ID,
-        EMAILJS_TEMPLATE_ID,
-        templateParams,
-        EMAILJS_USER_ID
+      // Create form data to send via mailto link
+      const mailtoSubject = encodeURIComponent(data.subject);
+      const mailtoBody = encodeURIComponent(
+        `Name: ${data.name}\nEmail: ${data.email}\n\nMessage:\n${data.message}`
       );
       
-      console.log('Email sent successfully:', response);
-      toast.success('Message sent successfully! Morris will get back to you soon.');
+      // Open default mail client with pre-filled email
+      window.open(`mailto:${RECIPIENT_EMAIL}?subject=${mailtoSubject}&body=${mailtoBody}`);
+      
+      // Show success message
+      toast.success('Email client opened. Please send the message from your email application.');
       form.reset();
     } catch (error) {
       console.error('Error submitting form:', error);
-      
-      // Handle specific EmailJS errors
-      let errorMessage = 'Failed to send message. Please try again later.';
-      
-      if (error instanceof Error) {
-        errorMessage = `Error: ${error.message}`;
-        console.error('Error details:', error);
-        
-        // Check for specific error types
-        if (error.message.includes('Account not found') || error.message.includes('404')) {
-          setEmailJSError('EmailJS account configuration issue. Please check your EmailJS setup.');
-          errorMessage = 'Email service configuration issue. Please try an alternative contact method.';
-        }
-      }
-      
-      // Display error message to user
-      toast.error(errorMessage);
+      toast.error('Unable to open email client. Please contact directly at moriskashing74@gmail.com');
     } finally {
       setIsSubmitting(false);
     }
@@ -108,12 +73,9 @@ const Contact = () => {
             <p className="text-muted-foreground">
               Fill out the form below to send Morris a message directly.
             </p>
-            {emailJSError && (
-              <div className="mt-4 p-3 bg-amber-50 border border-amber-200 rounded-md text-amber-700 text-sm">
-                <p><strong>Note:</strong> {emailJSError}</p>
-                <p className="mt-2">You can also reach out via email at moriskashing74@gmail.com</p>
-              </div>
-            )}
+            <p className="mt-2 text-sm text-muted-foreground">
+              Or email directly at: <a href={`mailto:${RECIPIENT_EMAIL}`} className="text-primary hover:underline">{RECIPIENT_EMAIL}</a>
+            </p>
           </div>
 
           <Form {...form}>
@@ -183,7 +145,7 @@ const Contact = () => {
                 className="w-full"
                 disabled={isSubmitting}
               >
-                {isSubmitting ? 'Sending...' : 'Send Message'}
+                {isSubmitting ? 'Processing...' : 'Send Message'}
                 <Send className="ml-2 h-4 w-4" />
               </Button>
             </form>
