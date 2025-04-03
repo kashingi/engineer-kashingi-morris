@@ -9,6 +9,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { toast } from 'sonner';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
+import emailjs from 'emailjs-com';
 
 const formSchema = z.object({
   name: z.string().min(2, { message: 'Name must be at least 2 characters.' }),
@@ -19,7 +20,12 @@ const formSchema = z.object({
 
 type FormValues = z.infer<typeof formSchema>;
 
-// Direct email configuration
+// EmailJS configuration
+const EMAILJS_SERVICE_ID = 'service_31seoyo'; 
+const EMAILJS_TEMPLATE_ID = 'template_n2jhy6r';
+const EMAILJS_PUBLIC_KEY = 'iHsLHk0qSvHgwjPwP';
+
+// Recipient email (your email)
 const RECIPIENT_EMAIL = 'moriskashing74@gmail.com';
 
 const Contact = () => {
@@ -41,21 +47,29 @@ const Contact = () => {
     try {
       console.log('Form data submitted:', data);
       
-      // Create form data to send via mailto link
-      const mailtoSubject = encodeURIComponent(data.subject);
-      const mailtoBody = encodeURIComponent(
-        `Name: ${data.name}\nEmail: ${data.email}\n\nMessage:\n${data.message}`
+      // Prepare template parameters for EmailJS
+      const templateParams = {
+        to_email: RECIPIENT_EMAIL,
+        from_name: data.name,
+        from_email: data.email,
+        subject: data.subject,
+        message: data.message,
+        reply_to: data.email
+      };
+      
+      // Send email using EmailJS
+      await emailjs.send(
+        EMAILJS_SERVICE_ID,
+        EMAILJS_TEMPLATE_ID,
+        templateParams,
+        EMAILJS_PUBLIC_KEY
       );
       
-      // Open default mail client with pre-filled email
-      window.open(`mailto:${RECIPIENT_EMAIL}?subject=${mailtoSubject}&body=${mailtoBody}`);
-      
-      // Show success message
-      toast.success('Email client opened. Please send the message from your email application.');
+      toast.success('Message sent successfully! Morris will get back to you soon.');
       form.reset();
     } catch (error) {
       console.error('Error submitting form:', error);
-      toast.error('Unable to open email client. Please contact directly at moriskashing74@gmail.com');
+      toast.error('Failed to send message. Please try again later or contact directly at moriskashing74@gmail.com');
     } finally {
       setIsSubmitting(false);
     }
@@ -145,7 +159,7 @@ const Contact = () => {
                 className="w-full"
                 disabled={isSubmitting}
               >
-                {isSubmitting ? 'Processing...' : 'Send Message'}
+                {isSubmitting ? 'Sending...' : 'Send Message'}
                 <Send className="ml-2 h-4 w-4" />
               </Button>
             </form>
