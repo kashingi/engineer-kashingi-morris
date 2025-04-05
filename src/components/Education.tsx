@@ -121,7 +121,7 @@ const Education = () => {
             <CardHeader className="pb-3">
               <div className="flex items-center gap-2">
                 <Book className="h-6 w-6 text-primary" />
-                <CardTitle>Training & Certifications</CardTitle>
+                <CardTitle>Professional Trainings</CardTitle>
               </div>
               <Separator className="my-2" />
             </CardHeader>
