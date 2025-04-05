@@ -1,4 +1,8 @@
 
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Separator } from "@/components/ui/separator";
+import { GraduationCap, Book } from "lucide-react";
+
 const Education = () => {
   const educations = [
     {
@@ -20,6 +24,20 @@ const Education = () => {
         "Human Factors in Computer and Information Systems and Human-Computer Interface Design"
       ]
     },
+    {
+      degree: "Kenya Certificate of Secondary Education (KCSE)",
+      institution: "AKoelel Secondary School",
+      location: "Gilgil, Kenya",
+      period: "February 2015 - November 2018",
+      skills: [
+        "Strong foundation in effective communication",
+        "Discipline, teamwork, and time management",
+        "Critical thinking and problem-solving skills"
+      ]
+    }
+  ];
+
+  const trainings = [
     {
       degree: "Certificate in Software Development",
       institution: "PLP Academy",
@@ -56,42 +74,61 @@ const Education = () => {
         "Backend development using php",
         "User friendly and user centered UI development"
       ]
-    },
-    {
-      degree: "Kenya Certificate of Secondary Education (KCSE)",
-      institution: "AKoelel Secondary School",
-      location: "Gilgil, Kenya",
-      period: "February 2015 - November 2018",
-      skills: [
-        "Strong foundation in effective communication",
-        "Discipline, teamwork, and time management",
-        "Critical thinking and problem-solving skills"
-      ]
     }
   ];
+
+  const renderTimeline = (items) => {
+    return items.map((item, index) => (
+      <div key={index} className="timeline-item">
+        <div className="mb-1 flex flex-col sm:flex-row sm:justify-between sm:items-center">
+          <h3 className="text-xl font-bold text-primary">{item.degree}</h3>
+          <span className="text-sm font-medium text-muted-foreground">{item.period}</span>
+        </div>
+        <p className="mb-2 font-medium">{item.institution} | {item.location}</p>
+        <div className="mt-2">
+          <h4 className="font-medium mb-1">Key Skills Gained:</h4>
+          <ul className="space-y-1 list-disc list-inside text-muted-foreground">
+            {item.skills.map((skill, sIndex) => (
+              <li key={sIndex}>{skill}</li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    ));
+  };
 
   return (
     <section id="education" className="py-20">
       <div className="container">
         <h2 className="section-title">Education & Training</h2>
-        <div className="max-w-4xl mx-auto">
-          {educations.map((edu, index) => (
-            <div key={index} className="timeline-item">
-              <div className="mb-1 flex flex-col sm:flex-row sm:justify-between sm:items-center">
-                <h3 className="text-xl font-bold text-primary">{edu.degree}</h3>
-                <span className="text-sm font-medium text-muted-foreground">{edu.period}</span>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+          {/* Education Card */}
+          <Card className="shadow-lg">
+            <CardHeader className="pb-3">
+              <div className="flex items-center gap-2">
+                <GraduationCap className="h-6 w-6 text-primary" />
+                <CardTitle>Education</CardTitle>
               </div>
-              <p className="mb-2 font-medium">{edu.institution} | {edu.location}</p>
-              <div className="mt-2">
-                <h4 className="font-medium mb-1">Key Skills Gained:</h4>
-                <ul className="space-y-1 list-disc list-inside text-muted-foreground">
-                  {edu.skills.map((skill, sIndex) => (
-                    <li key={sIndex}>{skill}</li>
-                  ))}
-                </ul>
+              <Separator className="my-2" />
+            </CardHeader>
+            <CardContent className="space-y-6">
+              {renderTimeline(educations)}
+            </CardContent>
+          </Card>
+
+          {/* Training Card */}
+          <Card className="shadow-lg">
+            <CardHeader className="pb-3">
+              <div className="flex items-center gap-2">
+                <Book className="h-6 w-6 text-primary" />
+                <CardTitle>Training & Certifications</CardTitle>
               </div>
-            </div>
-          ))}
+              <Separator className="my-2" />
+            </CardHeader>
+            <CardContent className="space-y-6">
+              {renderTimeline(trainings)}
+            </CardContent>
+          </Card>
         </div>
       </div>
     </section>
