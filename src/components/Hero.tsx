@@ -55,10 +55,10 @@ const Hero = () => {
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 animate-fade-in">
             Hi, I'm <span className="text-primary">Morris Kashingi</span>
           </h1>
-          <p className="text-xl md:text-2xl mb-8 text-muted-foreground animate-fade-in h-8 md:h-10" style={{ animationDelay: '0.2s' }}>
+          <h4 className="text-xl md:text-2xl mb-8 text-muted-foreground font-bold animate-fade-in h-8 md:h-10" style={{ animationDelay: '0.2s' }}>
             <span>{displayText}</span>
             <span className="inline-block w-1 h-6 ml-1 bg-primary animate-pulse"></span>
-          </p>
+          </h4>
           <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in" style={{ animationDelay: '0.4s' }}>
             <DownloadCV />
             <a href="#contact" className="btn-primary bg-secondary hover:bg-secondary/90 text-secondary-foreground">
