@@ -25,6 +25,10 @@ const Index = () => {
     
     // Set the title
     document.title = "Morris Kashingi | Software Developer";
+    
+    // Preload profile image for faster rendering
+    const img = new Image();
+    img.src = "/lovable-uploads/b604ee67-9972-4236-85ca-500076c2294c.png";
   }, []);
 
   return (

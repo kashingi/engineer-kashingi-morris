@@ -2,14 +2,24 @@
 import { Download } from 'lucide-react';
 
 const DownloadCV = () => {
-  // Note: In a real scenario, you would have an actual PDF file to download
-  // For demo purposes, we'll just create a function that could be connected to a real file
   const handleDownload = () => {
-    // In a real implementation, this would be:
-    // window.open('/Morris_Kashingi_CV.pdf', '_blank');
+    // Create a link element
+    const link = document.createElement('a');
     
-    // For the demo, we'll just show an alert
-    alert('CV download would start here in a real implementation');
+    // Set the href to your CV file (you should add this file to your public folder)
+    link.href = '/Morris_Kashingi_CV.pdf';
+    
+    // Set download attribute for the file name
+    link.download = 'Morris_Kashingi_CV.pdf';
+    
+    // Append to the document
+    document.body.appendChild(link);
+    
+    // Trigger the download
+    link.click();
+    
+    // Clean up
+    document.body.removeChild(link);
   };
 
   return (

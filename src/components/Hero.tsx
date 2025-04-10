@@ -1,6 +1,7 @@
 
 import { useState, useEffect } from 'react';
 import DownloadCV from './DownloadCV';
+import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 
 const titles = [
   "Software Developer",
@@ -52,6 +53,12 @@ const Hero = () => {
     <section id="home" className="py-20 md:py-32 flex items-center min-h-[calc(100vh-4rem)]">
       <div className="container">
         <div className="max-w-4xl mx-auto text-center">
+          <div className="mb-8 flex justify-center">
+            <Avatar className="h-48 w-48 border-4 border-primary shadow-xl">
+              <AvatarImage src="/lovable-uploads/b604ee67-9972-4236-85ca-500076c2294c.png" alt="Morris Kashingi" />
+              <AvatarFallback>MK</AvatarFallback>
+            </Avatar>
+          </div>
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 animate-fade-in">
             Hi, I'm <span className="text-primary">Morris Kashingi</span>
           </h1>
