@@ -54,9 +54,9 @@ const Hero = () => {
       <div className="container">
         <div className="max-w-4xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8">
           <div className="text-center md:text-left">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 animate-fade-in">
+            <h3 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 animate-fade-in">
               Hi, I'm <span className="text-primary">Morris Kashingi</span>
-            </h1>
+            </h3>
             <h4 className="text-xl md:text-2xl mb-8 text-muted-foreground font-bold animate-fade-in h-8 md:h-10" style={{ animationDelay: '0.2s' }}>
               <span>{displayText}</span>
               <span className="inline-block w-1 h-6 ml-1 bg-primary animate-pulse"></span>
