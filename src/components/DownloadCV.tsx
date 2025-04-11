@@ -7,8 +7,9 @@ const DownloadCV = () => {
   const { toast } = useToast();
   
   const handleDownload = () => {
-    // CV file path from the uploaded GitHub repo
-    const cvPath = '/Morris_Kashingi_CV.pdf';
+    // CV file path - using the file named "Morris Kashingi Resume.pdf" 
+    // which is already in the public folder
+    const cvPath = '/Morris Kashingi Resume.pdf';
     
     // Create a link element
     const link = document.createElement('a');
@@ -17,7 +18,7 @@ const DownloadCV = () => {
     link.href = cvPath;
     
     // Set download attribute for the file name
-    link.download = 'Morris_Kashingi_CV.pdf';
+    link.download = 'Morris Kashingi Resume.pdf';
     
     // Append to the document
     document.body.appendChild(link);
