@@ -1,6 +1,6 @@
 
 import { Download } from 'lucide-react';
-import { useToast } from "@/components/ui/toast";
+import { useToast } from "@/hooks/use-toast";
 
 const DownloadCV = () => {
   const { toast } = useToast();
