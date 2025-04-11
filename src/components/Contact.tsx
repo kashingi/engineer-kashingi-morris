@@ -21,9 +21,9 @@ const formSchema = z.object({
 type FormValues = z.infer<typeof formSchema>;
 
 // EmailJS configuration
-const EMAILJS_SERVICE_ID = 'service_ycq9xus'; // Replace with your actual service ID
-const EMAILJS_TEMPLATE_ID = 'template_4scm4jm'; // Replace with your actual template ID
-const EMAILJS_PUBLIC_KEY = 'prkc4iYp-N_e8njWG'; // Replace with your actual public key
+const EMAILJS_SERVICE_ID = 'service_ycq9xus'; 
+const EMAILJS_TEMPLATE_ID = 'template_4scm4jm'; 
+const EMAILJS_PUBLIC_KEY = 'prkc4iYp-N_e8njWG'; 
 
 // Recipient email
 const RECIPIENT_EMAIL = 'moriskashing74@gmail.com';
@@ -47,14 +47,15 @@ const Contact = () => {
     try {
       console.log('Form data submitted:', data);
       
-      // Prepare template parameters for EmailJS
+      // Prepare template parameters for EmailJS based on the template format
       const templateParams = {
-        from_name: data.name,
-        from_email: data.email,
-        subject: data.subject,
+        // Match these exactly to your EmailJS template variables
+        title: data.subject,
+        name: data.name,
+        email: data.email,
         message: data.message,
-        reply_to: data.email,
         to_email: RECIPIENT_EMAIL,
+        reply_to: data.email,
       };
       
       // Send email using EmailJS
