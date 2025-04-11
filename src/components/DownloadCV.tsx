@@ -1,16 +1,20 @@
 
 import { Download } from 'lucide-react';
 import { useToast } from "@/hooks/use-toast";
+import { Button } from "@/components/ui/button";
 
 const DownloadCV = () => {
   const { toast } = useToast();
   
   const handleDownload = () => {
+    // CV file path from the uploaded GitHub repo
+    const cvPath = '/Morris_Kashingi_CV.pdf';
+    
     // Create a link element
     const link = document.createElement('a');
     
     // Set the href to your CV file
-    link.href = '/Morris_Kashingi_CV.pdf';
+    link.href = cvPath;
     
     // Set download attribute for the file name
     link.download = 'Morris_Kashingi_CV.pdf';
@@ -32,10 +36,13 @@ const DownloadCV = () => {
   };
 
   return (
-    <button onClick={handleDownload} className="btn-primary">
+    <Button 
+      onClick={handleDownload} 
+      className="inline-flex items-center gap-2 bg-primary text-primary-foreground hover:bg-primary/90"
+    >
       <Download size={18} />
       Download CV
-    </button>
+    </Button>
   );
 };
 
