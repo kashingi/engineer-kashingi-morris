@@ -9,7 +9,6 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { toast } from 'sonner';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
-import emailjs from 'emailjs-com';
 
 const formSchema = z.object({
   name: z.string().min(2, { message: 'Name must be at least 2 characters.' }),
@@ -19,11 +18,6 @@ const formSchema = z.object({
 });
 
 type FormValues = z.infer<typeof formSchema>;
-
-// EmailJS configuration
-const EMAILJS_SERVICE_ID = 'service_ycq9xus'; 
-const EMAILJS_TEMPLATE_ID = 'template_4scm4jm'; 
-const EMAILJS_PUBLIC_KEY = 'prkc4iYp-N_e8njWG'; 
 
 // Recipient email
 const RECIPIENT_EMAIL = 'moriskashing74@gmail.com';
@@ -47,33 +41,14 @@ const Contact = () => {
     try {
       console.log('Form data submitted:', data);
       
-      // Prepare template parameters for EmailJS based on the template format
-      const templateParams = {
-        // Match these exactly to your EmailJS template variables
-        title: data.subject,
-        name: data.name,
-        email: data.email,
-        message: data.message,
-        to_email: RECIPIENT_EMAIL,
-        reply_to: data.email,
-      };
-      
-      // Send email using EmailJS
-      const response = await emailjs.send(
-        EMAILJS_SERVICE_ID,
-        EMAILJS_TEMPLATE_ID,
-        templateParams,
-        EMAILJS_PUBLIC_KEY
-      );
-      
-      console.log('EmailJS response:', response);
+      // Simulate API call with a timeout
+      await new Promise(resolve => setTimeout(resolve, 1000));
       
       toast.success('Message sent successfully! Morris will get back to you soon.');
       form.reset();
     } catch (error) {
       console.error('Error submitting form:', error);
       
-      // Provide a fallback option in case the form submission fails
       toast.error(
         <div>
           Failed to send message. Please email directly at: 
