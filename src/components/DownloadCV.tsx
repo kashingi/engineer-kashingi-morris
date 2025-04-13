@@ -7,13 +7,32 @@ const DownloadCV = () => {
   const { toast } = useToast();
   
   const handleDownload = () => {
-    // This is a placeholder function
-    // In a real application, you would link to an actual CV file
+    // CV file path - using the file named "Morris Kashingi Resume.pdf" 
+    // which is already in the public folder
+    const cvPath = '/Morris Kashingi Resume.pdf';
+    
+    // Create a link element
+    const link = document.createElement('a');
+    
+    // Set the href to your CV file
+    link.href = cvPath;
+    
+    // Set download attribute for the file name
+    link.download = 'Morris Kashingi Resume.pdf';
+    
+    // Append to the document
+    document.body.appendChild(link);
+    
+    // Trigger the download
+    link.click();
+    
+    // Clean up
+    document.body.removeChild(link);
     
     // Show toast notification
     toast({
-      title: "CV Download",
-      description: "This feature is not implemented yet.",
+      title: "CV Download Started",
+      description: "Your download should begin shortly.",
     });
   };
 
