@@ -105,7 +105,7 @@ const Contact = () => {
               Fill out the form below to send Morris a message directly.
             </p>
             <p className="mt-2 text-sm text-muted-foreground">
-              //Or email directly at: <a href={`mailto:${RECIPIENT_EMAIL}`} className="text-primary hover:underline">{RECIPIENT_EMAIL}</a>
+              {/* Or email directly at: <a href={`mailto:${RECIPIENT_EMAIL}`} className="text-primary hover:underline">{RECIPIENT_EMAIL}</a> */}
             </p>
           </div>
 
