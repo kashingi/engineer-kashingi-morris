@@ -24,21 +24,21 @@ const Certifications = () => {
   ];
 
   return (
-    <section id="certifications" className="py-20">
+    <section id="certifications" className="py-12">
       <div className="container">
         <h2 className="section-title">Certifications</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
           {certifications.map((cert, index) => (
             <a 
               key={index} 
               href={cert.link}
               target="_blank"
               rel="noopener noreferrer"
-              className="block p-6 rounded-lg shadow-md bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 hover:shadow-lg transition-shadow"
+              className="block p-5 rounded-lg shadow-md bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 hover:shadow-lg transition-shadow"
             >
               <h3 className="text-lg font-semibold mb-2 text-primary">{cert.title}</h3>
               <p className="text-sm text-muted-foreground">Issued by {cert.issuer}</p>
-              <p className="mt-4 text-xs text-primary underline">View Certificate</p>
+              <p className="mt-3 text-xs text-primary underline">View Certificate</p>
             </a>
           ))}
         </div>

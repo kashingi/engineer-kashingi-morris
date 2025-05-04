@@ -28,18 +28,18 @@ const Projects = () => {
   ];
 
   return (
-    <section id="projects" className="py-20 bg-secondary/30 dark:bg-secondary/10">
+    <section id="projects" className="py-12 bg-secondary/30 dark:bg-secondary/10">
       <div className="container">
         <h2 className="section-title">Featured Projects</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {projects.map((project, index) => (
             <div key={index} className="project-card">
-              <div className="p-6">
+              <div className="p-5">
                 <h3 className="text-xl font-bold mb-2 text-primary">{project.title}</h3>
-                <p className="mb-4 text-muted-foreground">{project.description}</p>
-                <p className="mb-4"><span className="font-medium">Role:</span> {project.role}</p>
+                <p className="mb-3 text-muted-foreground">{project.description}</p>
+                <p className="mb-3"><span className="font-medium">Role:</span> {project.role}</p>
                 <div>
-                  <h4 className="font-medium mb-2">Technologies:</h4>
+                  <h4 className="font-medium mb-1">Technologies:</h4>
                   <div className="flex flex-wrap gap-2">
                     {project.technologies.map((tech, techIndex) => (
                       <span 

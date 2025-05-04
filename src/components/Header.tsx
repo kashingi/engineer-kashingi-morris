@@ -22,7 +22,7 @@ const Header = () => {
 
   return (
     <header className="sticky top-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border">
-      <div className="container flex items-center justify-between h-16">
+      <div className="container flex items-center justify-between h-14">
         <div className="flex items-center">
           <a href="#home" className="text-xl font-bold text-primary">Morris Kashingi</a>
         </div>
@@ -56,7 +56,7 @@ const Header = () => {
 
       {/* Mobile Navigation Menu */}
       {mobileMenuOpen && (
-        <div className="fixed inset-0 top-16 bg-background z-40 md:hidden">
+        <div className="fixed inset-0 top-14 bg-background z-40 md:hidden">
           <nav className="flex flex-wrap justify-center p-2 gap-2">
             {navItems.map((item) => (
               <a

@@ -87,7 +87,7 @@
   }
 
   section {
-    @apply py-16 px-4;
+    @apply py-10 px-4;
   }
 
   .container {
@@ -95,17 +95,17 @@
   }
 
   .section-title {
-    @apply text-3xl md:text-4xl font-bold mb-8 text-center relative;
+    @apply text-3xl md:text-4xl font-bold mb-6 text-center relative;
   }
 
   .section-title::after {
     content: '';
-    @apply block w-20 h-1 bg-primary mx-auto mt-4;
+    @apply block w-20 h-1 bg-primary mx-auto mt-3;
   }
 }
 
 .timeline-item {
-  @apply relative pl-8 pb-8 border-l border-gray-300 dark:border-gray-700;
+  @apply relative pl-8 pb-6 border-l border-gray-300 dark:border-gray-700;
 }
 
 .timeline-item::before {

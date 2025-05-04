@@ -32,7 +32,7 @@ const Volunteering = () => {
   ];
 
   return (
-    <section id="volunteering" className="py-20 bg-secondary/30 dark:bg-secondary/10">
+    <section id="volunteering" className="py-12 bg-secondary/30 dark:bg-secondary/10">
       <div className="container">
         <h2 className="section-title">Volunteering</h2>
         <div className="max-w-4xl mx-auto">

@@ -28,14 +28,14 @@ const Skills = () => {
   ];
 
   return (
-    <section id="skills" className="py-20">
+    <section id="skills" className="py-12">
       <div className="container">
         <h2 className="section-title">Skills & Expertise</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {skillCategories.map((category, index) => (
             <div key={index} className="skill-card">
-              <h3 className="text-xl font-semibold mb-4 text-primary">{category.title}</h3>
-              <ul className="space-y-2">
+              <h3 className="text-xl font-semibold mb-3 text-primary">{category.title}</h3>
+              <ul className="space-y-1">
                 {category.skills.map((skill, skillIndex) => (
                   <li key={skillIndex} className="flex items-center">
                     <span className="mr-2">•</span>
