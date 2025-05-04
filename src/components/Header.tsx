@@ -57,12 +57,12 @@ const Header = () => {
       {/* Mobile Navigation Menu */}
       {mobileMenuOpen && (
         <div className="fixed inset-0 top-16 bg-background z-40 md:hidden">
-          <nav className="flex flex-col p-4">
+          <nav className="flex flex-wrap justify-center p-4 gap-4">
             {navItems.map((item) => (
               <a
                 key={item.name}
                 href={item.href}
-                className="py-3 text-lg font-medium text-foreground hover:text-primary transition-colors"
+                className="py-2 px-3 text-base font-medium text-foreground hover:text-primary transition-colors bg-muted/50 rounded-md"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 {item.name}
