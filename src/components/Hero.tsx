@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react';
 import DownloadCV from './DownloadCV';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 const titles = [
   "Software Developer",
@@ -16,7 +17,7 @@ const Hero = () => {
   const [displayText, setDisplayText] = useState('');
   const [titleIndex, setTitleIndex] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
-  const [loopNum, setLoopNum] = useState(0);
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     const typingSpeed = isDeleting ? 50 : 150;
@@ -54,8 +55,17 @@ const Hero = () => {
       <div className="container">
         <div className="max-w-4xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8">
           <div className="text-center md:text-left w-full">
-            <h3 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 animate-fade-in whitespace-nowrap">
-              Hi, I'm <span className="text-primary">Morris Kashingi</span>
+            <h3 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 animate-fade-in">
+              {isMobile ? (
+                <>
+                  Hi, I'm<br />
+                  <span className="text-primary">Morris Kashingi</span>
+                </>
+              ) : (
+                <>
+                  Hi, I'm <span className="text-primary">Morris Kashingi</span>
+                </>
+              )}
             </h3>
             <h4 className="text-lg sm:text-xl md:text-2xl mb-6 text-muted-foreground font-bold animate-fade-in h-8 md:h-10" style={{ animationDelay: '0.2s' }}>
               <span>{displayText}</span>
