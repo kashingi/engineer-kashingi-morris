@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { personalInfo } from "../constants/data";
 import Button from "../components/Button";
 import { ArrowDownCircle } from "lucide-react";
-import profileImage from "../assets/Kashingi.jpg";
 
 const Hero: React.FC = () => {
   const [typedText, setTypedText] = useState("");

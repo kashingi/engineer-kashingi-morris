@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { Toaster } from 'sonner';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Hero from './sections/Hero';
@@ -58,6 +59,7 @@ function App() {
         <Contact />
       </main>
       <Footer />
+      <Toaster />
     </div>
   );
 }
