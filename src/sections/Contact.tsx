@@ -258,6 +258,7 @@ const Contact: React.FC = () => {
                 className="w-full flex justify-center"
                 as="button"
                 ariaLabel="Send Message"
+                disabled={isSubmitting}
               >
                 {isSubmitting ? (
                   <span className="flex items-center">

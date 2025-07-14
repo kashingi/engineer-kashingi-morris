@@ -11,6 +11,7 @@ interface ButtonProps {
   target?: '_blank' | '_self';
   rel?: string;
   ariaLabel?: string;
+  disabled?: boolean;
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -24,13 +25,20 @@ const Button: React.FC<ButtonProps> = ({
   target,
   rel,
   ariaLabel,
+  disabled = false,
 }) => {
   const baseClasses = 'inline-flex items-center justify-center rounded-md font-medium transition-all duration-300';
   
   const variantClasses = {
-    primary: 'bg-blue-600 text-white hover:bg-blue-700 shadow-md hover:shadow-lg',
-    secondary: 'bg-gray-800 text-white hover:bg-gray-900 shadow-md hover:shadow-lg',
-    outline: 'bg-transparent border-2 border-blue-600 text-blue-600 hover:bg-blue-50'
+    primary: disabled 
+      ? 'bg-gray-400 text-white cursor-not-allowed' 
+      : 'bg-blue-600 text-white hover:bg-blue-700 shadow-md hover:shadow-lg',
+    secondary: disabled
+      ? 'bg-gray-400 text-white cursor-not-allowed'
+      : 'bg-gray-800 text-white hover:bg-gray-900 shadow-md hover:shadow-lg',
+    outline: disabled
+      ? 'bg-transparent border-2 border-gray-400 text-gray-400 cursor-not-allowed'
+      : 'bg-transparent border-2 border-blue-600 text-blue-600 hover:bg-blue-50'
   };
   
   const sizeClasses = {
@@ -60,6 +68,7 @@ const Button: React.FC<ButtonProps> = ({
       className={classes} 
       onClick={onClick}
       aria-label={ariaLabel}
+      disabled={disabled}
     >
       {children}
     </button>
