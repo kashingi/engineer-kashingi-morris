@@ -21,6 +21,15 @@ const Contact: React.FC = () => {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  // Check if form is valid
+  const isFormValid = () => {
+    return formData.name.trim() !== '' &&
+           formData.email.trim() !== '' &&
+           /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email) &&
+           formData.subject.trim() !== '' &&
+           formData.message.trim() !== '';
+  };
+
   const validate = () => {
     const newErrors: Record<string, string> = {};
 
@@ -258,7 +267,7 @@ const Contact: React.FC = () => {
                 className="w-full flex justify-center"
                 as="button"
                 ariaLabel="Send Message"
-                disabled={isSubmitting}
+                disabled={!isFormValid() || isSubmitting}
               >
                 {isSubmitting ? (
                   <span className="flex items-center">
